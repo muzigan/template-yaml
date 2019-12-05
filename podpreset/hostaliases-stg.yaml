@@ -1,0 +1,25 @@
+apiVersion: settings.k8s.io/v1alpha1
+kind: PodPreset
+metadata:
+  name: hostaliases
+  namespace: stg
+spec:
+  selector:
+    matchLabels:
+      preset: hostaliases
+  hostAliases:
+  - hostnames:
+    - master
+    ip: 192.168.88.244
+  - hostnames:
+    - slave01
+    ip: 192.168.88.241
+  - hostnames:
+    - slave02
+    ip: 192.168.88.242
+  - hostnames:
+    - slave03
+    ip: 192.168.88.243
+  - hostnames:
+    - slave04
+    ip: 192.168.88.245

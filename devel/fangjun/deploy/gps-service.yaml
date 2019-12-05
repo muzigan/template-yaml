@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "12"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"gps-service"},"name":"gps-service","namespace":"stg"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"gps-service"}},"strategy":{"rollingUpdate":{"maxSurge":"50%","maxUnavailable":"50%"},"type":"RollingUpdate"},"template":{"metadata":{"labels":{"app":"gps-service"}},"spec":{"containers":[{"envFrom":[{"configMapRef":{"name":"base"}}],"image":"registry.cn-hangzhou.aliyuncs.com/inside/stg-gps-service:1","imagePullPolicy":"IfNotPresent","name":"gps-service","resources":{"limits":{"cpu":"200m","memory":"1024Mi"},"requests":{"cpu":"200m","memory":"512Mi"}}}],"dnsPolicy":"ClusterFirst","imagePullSecrets":[{"name":"alihangzhou"}],"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}}}}
+  creationTimestamp: "2019-11-27T05:07:43Z"
+  generation: 12
+  labels:
+    app: gps-service
+  name: gps-service
+  namespace: fangjun
+  resourceVersion: "4104738"
+  selfLink: /apis/apps/v1/namespaces/stg/deployments/gps-service
+  uid: f2e91d7d-cb08-4caf-b123-af9bed133d79
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: gps-service
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 50%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: gps-service
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: base
+        image: registry.cn-hangzhou.aliyuncs.com/inside/gps-service:stg-1
+        imagePullPolicy: IfNotPresent
+        name: gps-service
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: alihangzhou
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

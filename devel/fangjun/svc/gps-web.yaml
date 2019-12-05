@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"gps-web"},"name":"gps-web","namespace":"stg"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":80}],"selector":{"app":"gps-web"},"type":"ClusterIP"},"status":{"loadBalancer":{}}}
+  creationTimestamp: "2019-12-02T06:46:51Z"
+  labels:
+    app: gps-web
+  name: gps-web
+  namespace: fangjun
+  resourceVersion: "4127723"
+  selfLink: /api/v1/namespaces/stg/services/gps-web
+  uid: 43570954-e18e-48d3-a028-7e69dc1bcd8f
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: gps-web
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"StatefulSet","metadata":{"annotations":{},"name":"eureka","namespace":"stg"},"spec":{"podManagementPolicy":"OrderedReady","replicas":3,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"eureka"}},"serviceName":"eureka","template":{"metadata":{"creationTimestamp":null,"labels":{"app":"eureka"}},"spec":{"containers":[{"envFrom":[{"configMapRef":{"name":"base"}}],"image":"registry.cn-hangzhou.aliyuncs.com/inside/eureka:1","imagePullPolicy":"IfNotPresent","name":"eureka","resources":{"limits":{"memory":"512Mi"},"requests":{"cpu":"200m","memory":"512Mi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","imagePullSecrets":[{"name":"alihangzhou"}],"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}},"updateStrategy":{"rollingUpdate":{"partition":0},"type":"RollingUpdate"}}}
+  creationTimestamp: "2019-11-18T07:18:15Z"
+  generation: 7
+  name: eureka
+  namespace: stg
+  resourceVersion: "4128251"
+  selfLink: /apis/apps/v1/namespaces/stg/statefulsets/eureka
+  uid: fe71a4f2-0d6b-4dfb-8a51-9568ee234ec9
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: eureka
+  serviceName: eureka
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: eureka
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: base
+        image: registry.cn-hangzhou.aliyuncs.com/inside/eureka:latest
+        imagePullPolicy: IfNotPresent
+        name: eureka
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: alihangzhou
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate
+status:
+  collisionCount: 0
+  currentReplicas: 3
+  currentRevision: eureka-57899fb867
+  observedGeneration: 7
+  readyReplicas: 3
+  replicas: 3
+  updateRevision: eureka-57899fb867
+  updatedReplicas: 3
