@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: kube-dns
-  namespace: kube-system
-data:
-  stubDomains: |
-    {"1.2.3.4.5.6.7": ["192.168.88.1"]}

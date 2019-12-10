@@ -1,7 +1,0 @@
-apiVersion: v1
-data:
-  JAVA_OPTS: -Xms1500m -Xmx1500m
-kind: ConfigMap
-metadata:
-  name: xms1500
-  namespace: {{ .Values.namespace }}

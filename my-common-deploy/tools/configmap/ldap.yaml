@@ -1,9 +1,0 @@
-apiVersion: v1
-data:
-  LDAP_ORGANISATION: "openldap"
-  LDAP_DOMAIN: "testldap.gumik8s.com"
-  LDAP_ADMIN_PASSWORD: "7e2A2OoHd9i17fmZ"
-kind: ConfigMap
-metadata:
-  name: openldap
-  namespace: tools
