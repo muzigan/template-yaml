@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  generation: 8
+  name: monit
+  namespace: monit
+spec:
+  rules:
+  - host: grafana.gumik8s.com
+    http:
+      paths:
+      - backend:
+          serviceName: grafana
+          servicePort: 3000
+        path: /
+  - host: prometheus.gumik8s.com
+    http:
+      paths:
+      - backend:
+          serviceName: prometheus
+          servicePort: 9090
+        path: /
+  tls:
+  - hosts:
+    - grafana.gumik8s.com
+    - prometheus.gumik8s.com
+    secretName: ingress

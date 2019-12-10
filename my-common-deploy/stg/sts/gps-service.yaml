@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: gps-service
+  namespace: stg
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: gps-service
+  serviceName: gps-service
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: gps-service
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: base
+        image: registry.cn-hangzhou.aliyuncs.com/inside/gps-service:latest
+        imagePullPolicy: IfNotPresent
+        name: gps-service
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /usr/local/tomcat/webapps
+          name: webapps
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: alihangzhou
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  updateStrategy:
+    rollingUpdate:
+      partition: 1
+    type: RollingUpdate
+  volumeClaimTemplates:
+  - metadata:
+      creationTimestamp: null
+      name: webapps
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 300Mi
+      storageClassName: ceph-storage-class
+      volumeMode: Filesystem
+    status:
+      phase: Pending

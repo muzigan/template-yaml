@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: xxl-job
+  name: xxl-job
+  namespace: stg 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xxl-job
+  serviceName: xxl-job
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: xxl-job
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: base
+        image: xuxueli/xxl-job-admin:2.1.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /xxl-job-admin
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 500
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+        name: xxl-job
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /xxl-job-admin
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 500
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+        resources:
+          limits:
+            cpu: 100m
+            memory: 700Mi
+          requests:
+            cpu: 50m
+            memory: 512Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data/applogs
+          name: xxl-job-data
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  updateStrategy:
+    type: RollingUpdate
+  volumeClaimTemplates:
+  - metadata:
+      creationTimestamp: null
+      name: xxl-job-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 200Mi
+      storageClassName: ceph-storage-class
+      volumeMode: Filesystem
+    status:
+      phase: Pending

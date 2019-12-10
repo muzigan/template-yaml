@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  JAVA_OPTS: "-Xms2g -Xmx4g   -XX:+UseG1GC -XX:MaxGCPauseMillis=200"
+kind: ConfigMap
+metadata:
+  name: jenkins
+  namespace: tools
