@@ -1,6 +1,5 @@
 # 我更改了镜像之后的mysql，是容器在mysql进程启动后，导入准备好的sql文件
-# 并添加mysqlRootHost,使容器自动创建root@% 用户
-
+# dockerfile  地址“https://github.com/muzigan/mysql.git”
 
 
 # MySQL
